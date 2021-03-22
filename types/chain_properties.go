@@ -23,21 +23,21 @@ import (
 // ChainProperties contains the SS58 format, the token decimals and the token symbol
 type ChainProperties struct {
 	IsSS58Format    bool
-	AsSS58Format    U8
+	SS58Format    U8
 	IsTokenDecimals bool
-	AsTokenDecimals U32
+	TokenDecimals U32
 	IsTokenSymbol   bool
-	AsTokenSymbol   Text
+	TokenSymbol   Text
 }
 
 func (a *ChainProperties) Decode(decoder scale.Decoder) error {
-	if err := decoder.DecodeOption(&a.IsSS58Format, &a.AsSS58Format); err != nil {
+	if err := decoder.DecodeOption(&a.IsSS58Format, &a.SS58Format); err != nil {
 		return err
 	}
-	if err := decoder.DecodeOption(&a.IsTokenDecimals, &a.AsTokenDecimals); err != nil {
+	if err := decoder.DecodeOption(&a.IsTokenDecimals, &a.TokenDecimals); err != nil {
 		return err
 	}
-	if err := decoder.DecodeOption(&a.IsTokenSymbol, &a.AsTokenSymbol); err != nil {
+	if err := decoder.DecodeOption(&a.IsTokenSymbol, &a.TokenSymbol); err != nil {
 		return err
 	}
 
@@ -45,13 +45,13 @@ func (a *ChainProperties) Decode(decoder scale.Decoder) error {
 }
 
 func (a ChainProperties) Encode(encoder scale.Encoder) error {
-	if err := encoder.EncodeOption(a.IsSS58Format, a.AsSS58Format); err != nil {
+	if err := encoder.EncodeOption(a.IsSS58Format, a.SS58Format); err != nil {
 		return err
 	}
-	if err := encoder.EncodeOption(a.IsTokenDecimals, a.AsTokenDecimals); err != nil {
+	if err := encoder.EncodeOption(a.IsTokenDecimals, a.TokenDecimals); err != nil {
 		return err
 	}
-	if err := encoder.EncodeOption(a.IsTokenSymbol, a.AsTokenSymbol); err != nil {
+	if err := encoder.EncodeOption(a.IsTokenSymbol, a.TokenSymbol); err != nil {
 		return err
 	}
 
