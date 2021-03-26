@@ -1,7 +1,9 @@
 package gsrpc_test
 
 import (
+	"encoding/hex"
 	"fmt"
+	"github.com/centrifuge/go-substrate-rpc-client/v2/extra"
 	rpc "github.com/centrifuge/go-substrate-rpc-client/v2/method"
 	"math/big"
 	"testing"
@@ -80,4 +82,23 @@ func TestSystem(t *testing.T) {
 		panic(err)
 	}
 
+}
+
+func TestAddressFromPub(t *testing.T) {
+	pub := "a69958eee5de0cb8fb250eba9c4b4ab1675468e68e49a5ebcac22fa9340fe938"
+	pubBytes, _ := hex.DecodeString(pub)
+	fmt.Println(pubBytes)
+	//pubBytes = append([]byte{0xff},pubBytes...)
+	address, err := extra.Encode(pubBytes, extra.PolkadotPrefix)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(address)
+}
+
+func TestVliadAddress(t *testing.T) {
+	err := extra.VerityAddress("5HpZZQKbdd8iUnedUCASdY9xyAMrrzmsmWY5J4nzTBjbbnbX", []byte{42})
+	if err != nil {
+		panic(err)
+	}
 }
