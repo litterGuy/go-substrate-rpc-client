@@ -29,3 +29,33 @@ func GetEra(currentBlockNumber uint64) types.ExtrinsicEra {
 		},
 	}
 }
+
+func GetOtherEra(blockNum uint64) *types.ExtrinsicEra {
+	if blockNum == 0 {
+		return nil
+	}
+	phase := blockNum % MortalEraPeriod
+	index := uint64(6)
+	trailingZero := index - 1
+
+	var encoded uint64
+	if trailingZero > 1 {
+		encoded = trailingZero
+	} else {
+		encoded = 1
+	}
+
+	if trailingZero < 15 {
+		encoded = trailingZero
+	} else {
+		encoded = 15
+	}
+	encoded += phase / 1 << 4
+	first := byte(encoded >> 8)
+	second := byte(encoded & 0xff)
+	era := new(types.ExtrinsicEra)
+	era.IsMortalEra = true
+	era.AsMortalEra.First = first
+	era.AsMortalEra.Second = second
+	return era
+}

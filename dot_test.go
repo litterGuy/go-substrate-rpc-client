@@ -102,3 +102,18 @@ func TestVliadAddress(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestTransferECDSA(t *testing.T) {
+	dotsdk, err := rpc.NewDotSdk("wss://westend-rpc.polkadot.io")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	//types.SetSerDeOptions(types.SerDeOptions{NoPalletIndices: false})
+
+	hash, fee, err := dotsdk.TransferECDSA("52feabaab39178b12be74ff1f7cdcf18812d68ce2dfb648a5783be4e92924220", rpc.Westend, "5FvcbAPyzmMsYrGgmecLG6vPMqzaCr1V91hngtuYddc8VL3s", big.NewInt(100000000000), 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("tx hash is %v, pay fee is %v", hash.Hex(), fee)
+}
